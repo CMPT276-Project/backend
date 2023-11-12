@@ -1,0 +1,11 @@
+{
+  "name": "server-poc",
+  "version": "1.0.0",
+  "description": "A POC of the backend component of our Kahoot style game.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kelvin Hu <kha115@sfu.ca>",
+  "license": "MIT"
+}
