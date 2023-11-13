@@ -1,16 +1,33 @@
 "use strict";
 
-import http from "node:http";
+import Fastify from "fastify";
 import { router } from "./app.js";
 
 const hostname = "127.0.0.1";
 const port = process.env.PORT || 8080;
 
-const server = http.createServer((request, response) => {
-    router(request, response);
+const fastify = Fastify({
+    logger: true
+})
+
+// Routings
+fastify.get("/", async function(request, response) {
+    return {
+        hello: "world"
+    };
 });
 
-
-server.listen(port, hostname, () => {
-    console.log(`Listening on ${hostname}:${port}...`)
-})
+// Start the server
+const start = async function() {
+    try {
+        await fastify.listen({
+            host: hostname,
+            port: port
+        });
+    }
+    catch (error) {
+        fastify.log.error(err);
+        process.exit(1);
+    }
+}
+start();

@@ -1,15 +1,9 @@
 "use strict";
 
-function router(request, response) {
-    switch(request.url) {
-        case "/":
-            start_page(request, response);
-            break;
-    }
-}
-
-function start_page(_, response) {
-    response.end("Hello");
+async function get_token(_, response) {
+    const resp = await fetch("https://opentdb.com/api_token.php?command=request");
+    const body = JSON.stringify(await resp.json());
+    response.end(body);
 }
 
 export { router };
