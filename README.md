@@ -11,7 +11,7 @@ This POC will be concerned with two components of our game: the backend, which c
 # Running
 
 ```bash
-npm install package.json
+npm install
 npm start
 ```
 
