@@ -16,3 +16,11 @@ npm start
 ```
 
 Go to `localhost:8080`
+
+# Dependency Rationale
+
+## Fastify
+
+Fastify appears to be the replacement/alternative to Express as the latter has seen only a handful of commits (most of which seem to be dependency updates) for this year. 
+
+Stable and well-maintained software is, in my opinion, fine with not receiving major version updates and only updating dependencies, but for something as potentially vulnerable as a web framework, it's safer to err on the side of caution and pick something that is more frequently updated instead.
