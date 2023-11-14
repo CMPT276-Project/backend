@@ -14,9 +14,24 @@ This function creates a GUID and then both stores it in a persistent database as
 
 In the case of WebSocket based APIs, the following is a list of valid endpoints:
 
+All messages must be encoded with the following format:
+
+```json
+{
+    "opcode": "get-question",
+    "payload": {
+        "categories": 0,
+        "type": "multiple",
+        "diffculty": "easy",
+        "number_of_questions": 50,
+    }
+}
+```
+`get-question` and associated `payload` is used as a nexample, different operations will have different payloads. Depending on the command,  the usage of `payload` may not be necessary, in this event an empty object should be used instead.
+
 ### `/api/v1/ws/game`
 
-The following is a list of valid events and associated message contents encoded in JSON:
+The following is a list of valid operations and associated message contents encoded in JSON:
 
 #### `get-categories`
 

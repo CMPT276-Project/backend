@@ -44,19 +44,21 @@ fastify.register(async function(fastify) {
                     ws_connection.socket.send(JSON.stringify(categories));
                     break;
                 case "get-question":
-                    const category = question_parameters.category;
-                    const amount = question_parameters.number_of_questions;
+                    const category = client_message.payload.category;
+                    const amount = client_message.payload.number_of_questions;
             
                     let url = `https://opentdb.com/api.php?category=${category}&amount=${amount}`;
             
-                    if(question_parameters.diffculty !== "any") {
-                        url.concat(`&difficulty=${question_parameters.diffculty}`);
+                    if(client_message.diffculty !== "any") {
+                        url.concat(`&difficulty=${client_message.diffculty}`);
                     }
             
-                    if(question_parameters.type !== "any") {
-                        url.concat(`&type=${question_parameters.type}`);
+                    if(client_message.type !== "any") {
+                        url.concat(`&type=${client_message.type}`);
                     }
             
+                    console.log(url);
+
                     let questions = await fetch(url);
                     questions = await questions.json();
                     ws_connection.socket.send(JSON.stringify(questions)); 
