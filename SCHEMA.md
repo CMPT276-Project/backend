@@ -37,13 +37,17 @@ The client will send a JSON encoded message in the following format:
 ```json
 {
     "categories":["Computers", "Math"],
-    "types": ["MC", "TF"],
+    "types": "multiple" || "truefalse" || "all",
     "diffculty": ["Easy", "Medium", "Hard"]
-    "number_of_questions": 10,
+    "number_of_questions": 50,
 }
 ```
 
-For `categories`, `types`, and `difficulty`, the array must contain at least one value and can contain multiple values.
+For `types`, the options are one of `multiple`, `truefalse`, or `all`.
+
+For `categories`, and `difficulty`, the array must contain at least one value and can contain multiple values.
+
+`number_of_questions` has an upper limit of 50.
 
 The server will respond with the following JSON:
 
