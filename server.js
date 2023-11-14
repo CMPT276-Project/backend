@@ -56,8 +56,6 @@ fastify.register(async function(fastify) {
                     if(client_message.type !== "any") {
                         url.concat(`&type=${client_message.type}`);
                     }
-            
-                    console.log(url);
 
                     let questions = await fetch(url);
                     questions = await questions.json();
