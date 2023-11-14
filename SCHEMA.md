@@ -56,7 +56,7 @@ The server will respond with the following JSON:
     [
         {
             "category": "Computers",
-            "type": "Multiple",
+            "type": "multiple",
             "question": "Which of the following is the register number for the stack pointer in RISC-V",
             "incorrect_answers": ["x0", "x1", "x20"],
             "correct_answer": "x2",
