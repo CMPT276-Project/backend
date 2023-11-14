@@ -24,11 +24,21 @@ The server will respond with an array in JSON in the following format:
 
 ```json
 {
-    "categories":["Computers", "Math", ...]
+    "categories":[
+        {
+            "id": 0,
+            "name": "Computers"
+        }
+        {
+            "id": 1,
+            "name": "Mathematics"
+        },
+        ...
+    ]
 }
 ```
 
-For `categories`, the array must contain at least one value and can contain multiple values.
+It should be noted that the categories names and ids are not representative of actual data and is intended as an example.
 
 #### `get-question`
 
@@ -36,20 +46,22 @@ The client will send a JSON encoded message in the following format:
 
 ```json
 {
-    "categories":["Computers", "Math"],
-    "types": "multiple" || "truefalse" || "all",
-    "diffculty": ["Easy", "Medium", "Hard"]
+    "categories": 0,
+    "type": "multiple",
+    "diffculty": "easy",
     "number_of_questions": 50,
 }
 ```
 
-For `types`, the options are one of `multiple`, `truefalse`, or `all`.
+For `types`, the options are one of `multiple`, `boolean`, or `all`.
 
-For `categories`, and `difficulty`, the array must contain at least one value and can contain multiple values.
+For `categories`, refer to the values returned from `get-categories` for the ids of categories.
 
-`number_of_questions` has an upper limit of 50.
+For `difficulty`, the value must contain one of: `easy`, `medium`, `hard`, or `any`.
 
-The server will respond with the following JSON:
+The `number_of_questions` has an upper limit of 50. This is based off the limits of the OpenTrivia Database API.
+
+The server will respond with the following JSON, certain keys will yield different results based on input parameters:
 
 ```json
 {
@@ -66,4 +78,4 @@ The server will respond with the following JSON:
 }
 ```
 
-The array contains one to many number  of questions.
+The array contains one to many number (up to the value specified in `number_of_questions`) of questions.
