@@ -12,6 +12,13 @@ const fastify = Fastify({
 /* 
     Routings
 */
+fastify.post("/api/v1/score/register", async function(request, response) {
+    
+});
+
+fastify.patch("/api/v1/score/update", async function(request, response) {
+
+});
 
 // Start the server
 const start = async function() {
