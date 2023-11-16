@@ -15,28 +15,6 @@ npm install
 npm start
 ```
 
-Go to `localhost:8080` and try the following in a console:
-
-```js
-let ws = new WebSocket("ws://localhost:8080/api/v1/ws/game");
-
-ws.addEventListener("message", function(message) {
-  console.log(message);
-});
-
-let payload = {
-  opcode:"get-question",
-  payload: {
-    "category": 22,
-    "type": "multiple",
-    "difficulty": "any",
-    "number_of_questions": 10
-  }
-}
-
-ws.send(JSON.stringify(payload));
-```
-
 # Dependency Rationale
 
 ## Fastify
