@@ -4,93 +4,29 @@ The client will connect to the server either via a REST or WebSocket handshake e
 
 ## REST API
 
-In the case of the REST API, the following is a list of valid endpoints:
+### POST /api/v1/score/register
 
-- GET `/api/v1/user/register`
-
-This function creates a GUID and then both stores it in a persistent database as well as returns it to the caller.
-
-## WebSocket API
-
-In the case of WebSocket based APIs, the following is a list of valid endpoints:
-
-All messages must be encoded with the following format:
+The body of the request MUST contain the following key-value pair encoded in a JSON object: 
 
 ```json
 {
-    "opcode": "get-question",
-    "payload": {
-        "categories": 0,
-        "type": "multiple",
-        "diffculty": "easy",
-        "number_of_questions": 50,
-    }
+    "name": "John Smith",
+    "guid": "b8cf914e-96ea-4521-b293-619c55b6d9cd" 
 }
 ```
-`get-question` and associated `payload` is used as a nexample, different operations will have different payloads. Depending on the command,  the usage of `payload` may not be necessary, in this event an empty object should be used instead.
 
-### `/api/v1/ws/game`
+- "guid": is a v4 UUID, this can be generated in browser using: `self.crypto.randomUUID()`.
 
-The following is a list of valid operations and associated message contents encoded in JSON:
+### PATCH /api/v1/score/update
 
-#### `get-categories`
+The URL to this endpoint MUST include a query string indicating the user, for example:
 
-The server will respond with an array in JSON in the following format:
+`localhost:8080/api/v1/score/update?id=b8cf914e-96ea-4521-b293-619c55b6d9cd`
+
+The body of the request MUST contain a JSON encoded integer which is added to a pre-existing (or a zero value if not) in the database:
 
 ```json
 {
-    "categories":[
-        {
-            "id": 0,
-            "name": "Computers"
-        }
-        {
-            "id": 1,
-            "name": "Mathematics"
-        },
-        ...
-    ]
+    "value": 42
 }
 ```
-
-It should be noted that the categories names and ids are not representative of actual data and is intended as an example.
-
-#### `get-question`
-
-The client will send a JSON encoded message in the following format:
-
-```json
-{
-    "categories": 0,
-    "type": "multiple",
-    "diffculty": "easy",
-    "number_of_questions": 50,
-}
-```
-
-For `types`, the options are one of `multiple`, `boolean`, or `all`.
-
-For `categories`, refer to the values returned from `get-categories` for the ids of categories.
-
-For `difficulty`, the value must contain one of: `easy`, `medium`, `hard`, or `any`.
-
-The `number_of_questions` has an upper limit of 50. This is based off the limits of the OpenTrivia Database API.
-
-The server will respond with the following JSON, certain keys will yield different results based on input parameters:
-
-```json
-{
-    [
-        {
-            "category": "Computers",
-            "type": "multiple",
-            "question": "Which of the following is the register number for the stack pointer in RISC-V",
-            "incorrect_answers": ["x0", "x1", "x20"],
-            "correct_answer": "x2",
-        },
-        ...
-    ]
-}
-```
-
-The array contains one to many number (up to the value specified in `number_of_questions`) of questions.
