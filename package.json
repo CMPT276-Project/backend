@@ -10,7 +10,8 @@
   "author": "Kelvin Hu <kha115@sfu.ca>",
   "license": "MIT",
   "dependencies": {
-    "fastify": "^4.24.3"
+    "fastify": "^4.24.3",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "jest": "^29.7.0"
