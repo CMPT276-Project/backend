@@ -5,6 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "migration": "node migration.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kelvin Hu <kha115@sfu.ca>",
