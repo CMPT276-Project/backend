@@ -49,7 +49,5 @@ db.serialize(function() {
             ON UPDATE CASCADE
             ON DELETE SET DEFAULT
     );
-    `, function() {
-        console.log("")
-    });
+    `);
 });
