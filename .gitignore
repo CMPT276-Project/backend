@@ -1,2 +1,5 @@
 # Dependencies
 node_modules
+
+# Ignore database files
+db.sqlite3
