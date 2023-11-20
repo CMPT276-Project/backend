@@ -45,7 +45,7 @@ files.sort();
 
 for(let file of files) {
     // Check if Javascript source file
-    if (file.split(".").pop !== "js") {
+    if (file.split(".").pop() !== "js") {
         console.log(`Skipping ${file}`);
         continue;
     }
