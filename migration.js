@@ -44,6 +44,12 @@ const files = readdirSync(migrations_path);
 files.sort();
 
 for(let file of files) {
+    // Check if Javascript source file
+    if (file.split(".").pop !== "js") {
+        console.log(`Skipping ${file}`);
+        continue;
+    }
+
     const script = readFileSync(migrations_path + "/" + file, "utf8");
     runInContext(script, vm_context);
 }
