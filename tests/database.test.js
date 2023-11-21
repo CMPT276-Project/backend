@@ -1,42 +1,22 @@
 "use strict";
 
-const sqlite3 = require("sqlite3");
+import { Database } from "../app/database";
 
 const db_path = process.env.DB_PATH || "./testing.sqlite3";
-const db = new sqlite3.Database(db_path, sqlite3.OPEN_READWRITE | sqlite3.OPEN_FULLMUTEX);
+const db = new Database(db_path);
 
-describe("Table operations", function() {
-    test("Table insertion tests - difficulties", function(done) {
+describe("Table - Difficulties", function() {
+    test("Inserting and retrieving row", async function() {
+        await db.add_difficulty("Testing", 123);
+
         expect(false).toBe(true);
     });
-    
-    test("Table insertion tests - categories", function(done) {
-        expect(false).toBe(true);
-    });
-    
-    test("Table insertion tests - sources", function(done) {
-        expect(false).toBe(true);
-    });
-    
-    test("Table insertion tests - questions", function(done) {
-        expect(false).toBe(true);
-    });
-    
-    test("Table deletion tests - difficulties", function(done) {
-        expect(false).toBe(true);
-    });
-    
-    test("Table deletion tests - categories", function(done) {
-        expect(false).toBe(true);
-    });
-    
-    test("Table deletion tests - sources", function(done) {
-        expect(false).toBe(true);
-    });
-    
-    test("Table deletion tests - questions", function(done) {
-        expect(false).toBe(true);
-    });
+
+    test("Retrieving non-existent row", async function() {
+
+    })
+
+    test("Inserting and retrieving row with incorrect data types", async function() {
+
+    })
 })
-
-db.close();
