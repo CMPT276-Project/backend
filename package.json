@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "migration": "node migration.js",
+    "migrate": "node migration.js",
     "test": "jest"
   },
   "author": "Kelvin Hu <kha115@sfu.ca>",
