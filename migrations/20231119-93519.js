@@ -23,15 +23,14 @@ db.serialize(function() {
 
     CREATE TABLE IF NOT EXISTS users(
         id TEXT,
-        name TEXT,
+        name TEXT UNIQUE,
 
-        PRIMARY KEY(id),
-        UNIQUE(name)
+        PRIMARY KEY(id)
     );
 
     CREATE TABLE IF NOT EXISTS scores(
         id TEXT,
-        score INTEGER
+        score INTEGER,
 
         PRIMARY KEY(id),
 
