@@ -25,6 +25,8 @@ test("Table existence checks", function(done) {
             expect(rows)
                 .toContainEqual({name: "sources"});
             expect(rows)
+                .toContainEqual({name: "users"});
+            expect(rows)
                 .toContainEqual({name: "scores"});
             expect(rows)
                 .toContainEqual({name: "questions"});

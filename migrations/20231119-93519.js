@@ -21,9 +21,23 @@ db.serialize(function() {
         PRIMARY KEY(source_name)
     );
 
+    CREATE TABLE IF NOT EXISTS users(
+        id TEXT,
+        name TEXT,
+
+        PRIMARY KEY(id),
+        UNIQUE(name)
+    );
+
     CREATE TABLE IF NOT EXISTS scores(
         id TEXT,
         score INTEGER
+
+        PRIMARY KEY(id),
+
+        FOREIGN KEY(id)
+            REFERENCES users(id)
+            ON DELETE CASCADE
     );
 
     CREATE TABLE IF NOT EXISTS questions(
