@@ -3,7 +3,7 @@
 import { createContext, runInContext } from "node:vm";
 import { readdirSync, readFileSync } from "fs";
 
-import { Database, OPEN_CREATE, OPEN_READWRITE, OPEN_FULLMUTEX } from "sqlite3";
+import sqlite3 from "sqlite3";
 
 const migrations_path = "./migrations";
 const db_path =  process.env.DB_PATH || "./db.sqlite3";
@@ -14,7 +14,7 @@ const db_path =  process.env.DB_PATH || "./db.sqlite3";
     This JS object is used to create a context that each script can call to execute DDL.
 */
 const vm_context = {
-    db: new Database(db_path, OPEN_READWRITE | OPEN_CREATE | OPEN_FULLMUTEX)
+    db: new sqlite3.Database(db_path)
 };
 createContext(vm_context);
 
