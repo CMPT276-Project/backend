@@ -258,13 +258,15 @@ class Database {
     run_statement(sql, ...parameters) {
         const promise = this.get_prepared_statement(sql)
             .then(function(statement) {
-                statement.run(...parameters, function(err) {
-                    if(err !== null) {
-                        reject(err);
-                        return;
-                    }
-
-                    resolve();
+                return new Promise(function(resolve, reject) {
+                    statement.run(...parameters, function(err) {
+                        if(err !== null) {
+                            reject(err);
+                            return;
+                        }
+    
+                        resolve();
+                    });
                 });
             });
 
@@ -274,13 +276,15 @@ class Database {
     get_statement(sql, ...parameters) {
         return this.get_prepared_statement(sql)
             .then(function(statement) {
-                statement.get(...parameters, function(err, row) {
-                    if(err !== null) {
-                        reject(err, row);
-                        return;
-                    }
+                return new Promise(function(resolve, reject) {
+                    statement.get(...parameters, function(err, row) {
+                        if(err !== null) {
+                            reject(err, row);
+                            return;
+                        }
 
-                    resolve(row);
+                        resolve(row);
+                    });
                 });
             });
     }
@@ -288,13 +292,15 @@ class Database {
     get_all_statement(sql, ...parameters) {
         return this.get_prepared_statement(sql)
             .then(function(statement) {
-                statement.all(...parameters, function(err, rows) {
-                    if(err !== null) {
-                        reject(err, rows);
-                        return;
-                    }
+                return new Promise(function(resolve, reject) {
+                    statement.all(...parameters, function(err, row) {
+                        if(err !== null) {
+                            reject(err, row);
+                            return;
+                        }
 
-                    resolve(rows);
+                        resolve(row);
+                    });
                 });
             });
     }
