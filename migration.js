@@ -3,8 +3,7 @@
 import { createContext, runInContext } from "node:vm";
 import { readdirSync, readFileSync } from "fs";
 
-import pkg from "sqlite3";
-const { Database, OPEN_CREATE, OPEN_READWRITE, OPEN_FULLMUTEX } = pkg;
+import { Database, OPEN_CREATE, OPEN_READWRITE, OPEN_FULLMUTEX } from "sqlite3";
 
 const migrations_path = "./migrations";
 const db_path =  process.env.DB_PATH || "./db.sqlite3";
