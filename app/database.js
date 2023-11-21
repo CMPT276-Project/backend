@@ -36,7 +36,7 @@ class Database {
     async add_difficulty(name, points) {
         const sql = `
             INSERT INTO difficulties 
-                VALUES (?, ?);
+                VALUES(?, ?);
         `;
         
         return this.run_statement(sql, name, points);
@@ -86,24 +86,51 @@ class Database {
         =================================================
     */
 
-    async add_category() {
+    async add_category(name, description) {
+        const sql = `
+            INSERT INTO categories
+                VALUES(?, ?);
+        `;
 
+        return this.run_statement(sql, name, description);
     }
 
-    async get_category() {
+    async get_category(name) {
+        const sql = `
+            SELECT *
+                FROM categories
+                WHERE category = ?;
+        `;
 
+        return this.get_statement(sql, name);
     }
 
     async get_all_categories() {
+        const sql = `
+            SELECT *
+                FROM categories;
+        `;
 
+        return this.get_all_statement(sql);
     }
 
-    async update_category() {
+    async update_category(name, description) {
+        const sql = `
+            UPDATE categories
+                SET description = ?
+                WHERE category = ?; 
+        `;
 
+        return this.run_statement(sql, description, name);
     }
 
-    async remove_category() {
+    async remove_category(name) {
+        const sql = `
+            DELETE FROM categories
+                WHERE category = ?;
+        `;
 
+        return this.run_statement(sql, name);
     }
 
     /*
@@ -279,7 +306,7 @@ class Database {
                 return new Promise(function(resolve, reject) {
                     statement.get(...parameters, function(err, row) {
                         if(err !== null) {
-                            reject(err, row);
+                            reject(err);
                             return;
                         }
 
@@ -293,13 +320,13 @@ class Database {
         return this.get_prepared_statement(sql)
             .then(function(statement) {
                 return new Promise(function(resolve, reject) {
-                    statement.all(...parameters, function(err, row) {
+                    statement.all(...parameters, function(err, rows) {
                         if(err !== null) {
-                            reject(err, row);
+                            reject(err);
                             return;
                         }
 
-                        resolve(row);
+                        resolve(rows);
                     });
                 });
             });
