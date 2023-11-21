@@ -49,8 +49,17 @@ class Database {
         `;
 
         const statement = await this.get_prepared_statement(sql);
-        statement.run(name);
-        // TODO: Insert return
+        
+        return new Promise(function(resolve, reject) {
+            statement.get(name, function(err, row) {
+                if(err != null) {
+                    reject(err);
+                    return;
+                }
+
+                resolve(row);
+            })
+        })
     }
 
     async get_difficulties() {
@@ -60,8 +69,17 @@ class Database {
         `;
         
         const statement = await this.get_prepared_statement(sql);
-        statement.run();
-        // TODO: Insert return
+        
+        return new Promise(function(resolve, reject) {
+            statement.all(function(err, rows) {
+                if(err != null) {
+                    reject(err);
+                    return;
+                }
+
+                resolve(rows);
+            })
+        })
     }
 
     async update_points(name, points) {
@@ -122,6 +140,7 @@ class Database {
                 const statement = this.db.prepare(sql, function(err) {
                     if(err !== null) {
                         reject(err);
+                        return;
                     }
                 });
 
