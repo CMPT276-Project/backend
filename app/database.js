@@ -24,15 +24,6 @@ class Database {
         ===================================================
     */
 
-    /*
-        Inserts a difficulty into the 'difficulties' table
-
-        Arguments:
-            name (String):      The name is the primary key column for the table, if this key 
-                                already exists then SQLite will return a UNIQUE constraint failure.
-            points (Integer):   Value is passed in literally, bounds limits should be performed before 
-                                calling this function.
-    */
     async add_difficulty(name, points) {
         const sql = `
             INSERT INTO difficulties 
@@ -298,24 +289,57 @@ class Database {
         ================================================
     */
 
-    async add_question() {
+    async add_question(question, source, difficulty, category) {
+        const sql = `
+            INSERT INTO questions
+                VALUES(?, ?, ?, ?);
+        `;
 
+        return this.run_statement(sql, question, source, difficulty, category);
     }
 
-    async get_question() {
+    async get_question(question, source, category) {
+        const sql = `
+            SELECT *
+                FROM questions
+                WHERE question = ? 
+                    AND source = ?
+                    AND category = ?;
+        `;
 
+        return this.get_statement(sql, question, source, category);
     }
 
     async get_all_questions() {
+        const sql = `
+            SELECT *
+                FROM questions;
+        `;
 
+        return this.get_all_statement(sql);
     }
 
-    async update_question() {
+    async update_question(question, source, category, difficulty) {
+        const sql = `
+            UPDATE questions
+                SET difficulty = ?
+                WHERE question = ?
+                    AND source = ?
+                    AND category = ?;
+        `;
 
+        return this.run_statement(sql, difficulty, question, source, category);
     }
 
-    async remove_question() {
+    async remove_question(question, source, category) {
+        const sql = `
+            DELETE FROM questions
+                WHERE question = ?
+                    AND source = ?
+                    AND category = ?;
+        `;
 
+        return this.run_statement(sql, question, source, category);
     }
 
 
