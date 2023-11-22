@@ -62,5 +62,8 @@ db.serialize(function() {
             ON UPDATE CASCADE
             ON DELETE SET DEFAULT
     );
+
+    INSERT INTO sources 
+        VALUES("Unknown", "Unknown");
     `);
 });
