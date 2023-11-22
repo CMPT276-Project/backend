@@ -139,24 +139,51 @@ class Database {
         ==============================================
     */
 
-    async add_source() {
+    async add_source(name, source) {
+        const sql = `
+            INSERT INTO sources
+                VALUES(?, ?);
+        `;
 
+        return this.run_statement(sql, name, source);
     }
 
-    async get_source() {
+    async get_source(name) {
+        const sql = `
+            SELECT *
+                FROM sources
+                WHERE source_name = ?;
+        `;
 
+        return this.get_statement(sql, name);
     }
 
     async get_all_sources() {
+        const sql = `
+            SELECT *
+                FROM sources;
+        `;
 
+        return this.get_all_statement(sql);
     }
     
-    async update_source() {
+    async update_source(name, source) {
+        const sql = `
+        UPDATE sources
+            SET source = ?
+            WHERE source_name = ?; 
+        `;
 
+        return this.run_statement(source, name);
     }
 
-    async remove_source() {
+    async remove_source(name) {
+        const sql = `
+            DELETE FROM sources
+                WHERE source_name = ?;
+        `;
 
+        return this.run_statement(sql, name);
     }
 
     /*
@@ -209,7 +236,7 @@ class Database {
                 WHERE id = ?;
         `;
 
-        this.run_statement(sql, guid);
+        return this.run_statement(sql, guid);
     }
 
     /*
@@ -218,24 +245,51 @@ class Database {
         =============================================
     */
 
-    async add_score() {
+    async add_score(id, score) {
+        const sql = `
+            INSERT INTO scores
+                VALUES(?, ?);
+        `;
 
+        return this.run_statement(sql, id, score);
     }
 
-    async get_score() {
+    async get_score(id) {
+        const sql = `
+            SELECT *
+                FROM scores
+                WHERE id = ?;
+        `;
 
+        return this.get_statement(sql, id);
     }
 
     async get_all_scores() {
+        const sql = `
+            SELECT *
+                FROM scores;
+        `;
 
+        return this.get_all_statement(sql);
     }
 
-    async update_score() {
+    async update_score(id, score) {
+        const sql = `
+            UPDATE scores
+                SET score = ?
+                WHERE id = ?;
+        `;
 
+        return this.run_statement(sql, score, id);
     }
 
-    async remove_score() {
+    async remove_score(id) {
+        const sql = `
+            DELETE FROM scores
+                WHERE id = ?;
+        `;
 
+        return this.run_statement(sql, id);
     }
 
     /*
