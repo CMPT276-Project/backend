@@ -49,6 +49,20 @@ fastify.post("/api/v1/user/:guid", async function(request, response) {
     );
 });
 
+// Get a user's record
+fastify.get("/api/v1/user/:guid", async function(request, response) {
+    const guid = request.params["guid"];
+
+    await get_user(database, guid,
+        function(record) {
+            response.send(record);
+        },
+        function(error) {
+            response.send(error);
+        }
+    )
+})
+
 /*
     Routings - Score Management
 */
