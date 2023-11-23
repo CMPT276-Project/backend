@@ -2,4 +2,4 @@
 node_modules
 
 # Ignore database files
-*.sqlite3
+*.sqlite3*
