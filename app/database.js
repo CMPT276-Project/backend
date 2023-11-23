@@ -24,7 +24,7 @@ class Database {
         ===================================================
     */
 
-    async add_difficulty(name, points) {
+    add_difficulty(name, points) {
         const sql = `
             INSERT INTO difficulties 
                 VALUES(?, ?);
@@ -33,7 +33,7 @@ class Database {
         return this.run_statement(sql, name, points);
     }
 
-    async get_difficulty(name) {
+    get_difficulty(name) {
         const sql = `
             SELECT * 
                 FROM difficulties 
@@ -43,7 +43,7 @@ class Database {
         return this.get_statement(sql, name);
     }
 
-    async get_all_difficulties() {
+    get_all_difficulties() {
         const sql = `
             SELECT * 
                 FROM difficulties;
@@ -52,7 +52,7 @@ class Database {
         return this.get_all_statement(sql);
     }
 
-    async update_difficulty(name, points) {
+    update_difficulty(name, points) {
         const sql = `
             UPDATE difficulties
                 SET points = ?
@@ -62,7 +62,7 @@ class Database {
         return this.run_statement(sql, points, name);
     }
 
-    async delete_difficulty(name) {
+    delete_difficulty(name) {
         const sql = `
             DELETE FROM difficulties 
                 WHERE difficulty = ?;
@@ -77,7 +77,7 @@ class Database {
         =================================================
     */
 
-    async add_category(name, description) {
+    add_category(name, description) {
         const sql = `
             INSERT INTO categories
                 VALUES(?, ?);
@@ -86,7 +86,7 @@ class Database {
         return this.run_statement(sql, name, description);
     }
 
-    async get_category(name) {
+    get_category(name) {
         const sql = `
             SELECT *
                 FROM categories
@@ -96,7 +96,7 @@ class Database {
         return this.get_statement(sql, name);
     }
 
-    async get_all_categories() {
+    get_all_categories() {
         const sql = `
             SELECT *
                 FROM categories;
@@ -105,7 +105,7 @@ class Database {
         return this.get_all_statement(sql);
     }
 
-    async update_category(name, description) {
+    update_category(name, description) {
         const sql = `
             UPDATE categories
                 SET description = ?
@@ -115,7 +115,7 @@ class Database {
         return this.run_statement(sql, description, name);
     }
 
-    async remove_category(name) {
+    remove_category(name) {
         const sql = `
             DELETE FROM categories
                 WHERE category = ?;
@@ -130,7 +130,7 @@ class Database {
         ==============================================
     */
 
-    async add_source(name, source) {
+    add_source(name, source) {
         const sql = `
             INSERT INTO sources
                 VALUES(?, ?);
@@ -139,7 +139,7 @@ class Database {
         return this.run_statement(sql, name, source);
     }
 
-    async get_source(name) {
+    get_source(name) {
         const sql = `
             SELECT *
                 FROM sources
@@ -149,7 +149,7 @@ class Database {
         return this.get_statement(sql, name);
     }
 
-    async get_all_sources() {
+    get_all_sources() {
         const sql = `
             SELECT *
                 FROM sources;
@@ -158,7 +158,7 @@ class Database {
         return this.get_all_statement(sql);
     }
     
-    async update_source(name, source) {
+    update_source(name, source) {
         const sql = `
         UPDATE sources
             SET source = ?
@@ -168,7 +168,7 @@ class Database {
         return this.run_statement(source, name);
     }
 
-    async remove_source(name) {
+    remove_source(name) {
         const sql = `
             DELETE FROM sources
                 WHERE source_name = ?;
@@ -183,7 +183,7 @@ class Database {
         ============================================
     */
 
-    async add_user(guid, name) {
+    add_user(guid, name) {
         const sql = `
             INSERT INTO users 
                 VALUES(?, ?)
@@ -192,7 +192,7 @@ class Database {
         return this.run_statement(sql, guid, name);
     }
 
-    async get_user(guid) {
+    get_user(guid) {
         const sql = `
             SELECT *
                 FROM users
@@ -202,7 +202,7 @@ class Database {
         return this.get_statement(sql, guid);
     }
 
-    async get_all_users() {
+    get_all_users() {
         const sql = `
             SELECT *
                 FROM users;
@@ -211,7 +211,7 @@ class Database {
         return this.get_all_statement(sql);
     }
 
-    async update_user(guid, name) {
+    update_user(guid, name) {
         const sql = `
             UPDATE users
                 SET name = ?
@@ -221,7 +221,7 @@ class Database {
         return this.run_statement(sql, name, guid);
     }
 
-    async remove_user(guid) {
+    remove_user(guid) {
         const sql = `
             DELETE FROM users
                 WHERE id = ?;
@@ -236,7 +236,7 @@ class Database {
         =============================================
     */
 
-    async add_score(id, score) {
+    add_score(id, score) {
         const sql = `
             INSERT INTO scores
                 VALUES(?, ?);
@@ -245,7 +245,7 @@ class Database {
         return this.run_statement(sql, id, score);
     }
 
-    async get_score(id) {
+    get_score(id) {
         const sql = `
             SELECT *
                 FROM scores
@@ -255,7 +255,7 @@ class Database {
         return this.get_statement(sql, id);
     }
 
-    async get_all_scores() {
+    get_all_scores() {
         const sql = `
             SELECT *
                 FROM scores;
@@ -264,7 +264,7 @@ class Database {
         return this.get_all_statement(sql);
     }
 
-    async update_score(id, score) {
+    update_score(id, score) {
         const sql = `
             UPDATE scores
                 SET score = ?
@@ -274,7 +274,7 @@ class Database {
         return this.run_statement(sql, score, id);
     }
 
-    async remove_score(id) {
+    remove_score(id) {
         const sql = `
             DELETE FROM scores
                 WHERE id = ?;
@@ -289,7 +289,7 @@ class Database {
         ================================================
     */
 
-    async add_question(question, source, difficulty, category) {
+    add_question(question, source, difficulty, category) {
         const sql = `
             INSERT INTO questions
                 VALUES(?, ?, ?, ?);
@@ -298,7 +298,7 @@ class Database {
         return this.run_statement(sql, question, source, difficulty, category);
     }
 
-    async get_question(question, source, category) {
+    get_question(question, source, category) {
         const sql = `
             SELECT *
                 FROM questions
@@ -310,7 +310,7 @@ class Database {
         return this.get_statement(sql, question, source, category);
     }
 
-    async get_all_questions() {
+    get_all_questions() {
         const sql = `
             SELECT *
                 FROM questions;
@@ -319,7 +319,7 @@ class Database {
         return this.get_all_statement(sql);
     }
 
-    async update_question(question, source, category, difficulty) {
+    update_question(question, source, category, difficulty) {
         const sql = `
             UPDATE questions
                 SET difficulty = ?
@@ -331,7 +331,7 @@ class Database {
         return this.run_statement(sql, difficulty, question, source, category);
     }
 
-    async remove_question(question, source, category) {
+    remove_question(question, source, category) {
         const sql = `
             DELETE FROM questions
                 WHERE question = ?
