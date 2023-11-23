@@ -17,4 +17,4 @@ db.serialize(function() {
             REFERENCES users(id)
             ON DELETE CASCADE
     );
-});
+`)});
