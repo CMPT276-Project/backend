@@ -42,7 +42,26 @@ async function update_user_name(database, guid, name, success_callback, failure_
     }
 }
 
+async function get_user(database, guid, success_callback, failure_callback) {
+    const sql = `
+        SELECT * 
+            FROM users
+            WHERE id = ?;
+    `;
+
+    try {
+        const { statement, row } = await database.get_statement(sql, guid);
+        statement.reset();
+
+        success_callback(row);
+    }
+    catch(err) {
+        failure_callback(err);
+    }
+}
+
 export {
     create_user,
-    update_user_name
+    update_user_name,
+    get_user
 }
