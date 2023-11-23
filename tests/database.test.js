@@ -43,14 +43,14 @@ describe("Users", function() {
 
 describe("Scores", function() {
     test("Get user score", function() {
-        
+        expect(false).toBe(true);
     });
 
     test("Get all user scores", function() {
-
+        expect(false).toBe(true);
     });
 
     test("Update user score", function() {
-
+        expect(false).toBe(true);
     })
 })
