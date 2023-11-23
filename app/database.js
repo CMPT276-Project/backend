@@ -45,7 +45,7 @@ class Database {
                             return;
                         }
     
-                        resolve();
+                        resolve({statement: statement});
                     });
                 });
             });
@@ -63,7 +63,7 @@ class Database {
                             return;
                         }
 
-                        resolve(row);
+                        resolve({statement: statement, row: row});
                     });
                 });
             });
@@ -79,7 +79,7 @@ class Database {
                             return;
                         }
 
-                        resolve(rows);
+                        resolve({statement: statement, rows: rows});
                     });
                 });
             });
