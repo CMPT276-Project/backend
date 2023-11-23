@@ -1,8 +1,12 @@
 "use strict";
 
+import { randomUUID } from "node:crypto";
+
 import Fastify from "fastify";
 
-import { Database } from "./app/database";
+import { Database } from "./app/database.js";
+import { create_user, update_user_name } from "./app/users.js";
+import { get_score_for_user, get_all_scores, update_user_score_by_amount } from "./app/scores.js";
 
 const hostname = "127.0.0.1";
 const port = process.env.PORT || 8080;
@@ -20,44 +24,29 @@ const database = new Database(db_path);
 
 // Generate, store, and return a GUID
 fastify.get("/api/v1/user/register", async function(request, response) {
-    const sql = `
-        INSERT INTO users
-            VALUES(?, ?);
-    `;
-    const guid = crypto.randomUUID();
-
-    try {
-        await database.run_statement(sql, guid, guid);
-        response.send({
-            id: guid
-        });
-    }   
-    catch(error) {
-        response.send({
-            error: error
-        });
-    }
+    await create_user(database, randomUUID(), 
+        function(guid) {
+            response.send({
+                id: guid
+            })
+        }, 
+        function(error) {
+            response.send(error);
+        }
+    );
 });
 
 // Update a user's name
 fastify.post("/api/v1/user/:guid", async function(request, response) {
-    const sql = `
-        UPDATE users
-            SET name = ?
-            WHERE id = ?;
-    `;
-    
-    const guid = response.params["guid"];
-    const name = response.body["name"];
+    const guid = request.params["guid"];
+    const name = request.body["name"];
 
-    try {
-        await database.run_statement(sql, name, guid);
-    }
-    catch(error) {
-        response.send({
-            error: error
-        });
-    }
+    await update_user_name(database, guid, name, 
+        function() { },
+        function(error) {
+            response.send(error);
+        }
+    );
 });
 
 /*
@@ -66,77 +55,50 @@ fastify.post("/api/v1/user/:guid", async function(request, response) {
 
 // Get all scores
 fastify.get("/api/v1/score", async function(request, response) {
-    const sql = `
-        SELECT *
-            FROM scores;
-    `;
-
-    try {
-        const scores = await database.get_all_statement(sql);
-        response.send({
-            scores: JSON.stringify(scores)
-        });
-    }
-    catch(error) {
-        response.send({
-            error: error
-        });
-    }
+    await get_all_scores(database, 
+        function(scores) {
+            response.send(scores);
+        },
+        function(error) {
+            response.send({
+                error: error
+            });
+        }
+    )
 })
 
 // Get user's current score
 fastify.get("/api/v1/score/:guid", async function(request, response) {
-    const sql = `
-        SELECT *
-            FROM scores
-            WHERE id = ?;
-    `;
-
     const guid = request.params["guid"];
 
-    try {
-        const score = await database.get_statement(sql, guid);
-        response.send({
-            score: JSON.stringify(score)
-        })
-    }
-    catch(error) {
-        response.send({
-            error: error
-        });
-    }
+    await get_score_for_user(database, guid,
+        function(score) {
+            response.send(score);
+        },
+        function(error) {
+            response.send({
+                error: error
+            });
+        }
+    );
 });
 
 // Update a user's score
 fastify.post("/api/v1/score/:guid", async function(request, response) {
-    const get_score_sql = `
-        SELECT score
-            FROM scores
-            WHERE id = ?;
-    `;
-
-    const store_score_sql = `
-        UPDATE scores
-            SET score = ?
-            WHERE id = ?;
-    `;
-
     const guid = request.params["guid"];
     const update_by_amount = request.body["score"];
 
-    try {
-        const current_score = await database.get_statement(get_score_sql, guid)["score"];
-        await database.run_statement(
-            store_score_sql, 
-            current_score + update_by_amount,
-            guid
-        );
-    }
-    catch(error) {
-        response.send({
-            error: error
-        });
-    }
+    await update_user_score_by_amount(
+        database,
+        guid,
+        update_by_amount,
+        function() { },
+        function(error) {
+            response.send({
+                error: error
+            })
+        }
+    )
 });
 
 
