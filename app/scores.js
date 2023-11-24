@@ -20,8 +20,9 @@ async function get_score_for_user(database, guid, success_callback, failure_call
 
 async function get_all_scores(database, success_callback, failure_callback) {
     const sql = `
-        SELECT *
-            FROM scores;
+        SELECT users.name, scores.score
+            FROM scores
+            INNER JOIN users ON users.id = scores.id;
     `;
 
     try {
