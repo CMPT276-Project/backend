@@ -2,7 +2,7 @@
 
 async function get_score_for_user(database, guid, success_callback, failure_callback) {
     const sql = `
-        SELECT *
+        SELECT score
             FROM scores
             WHERE id = ?;
     `;
