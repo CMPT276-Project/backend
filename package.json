@@ -1,7 +1,7 @@
 {
-  "name": "server-poc",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "A POC of the backend component of our Kahoot style game.",
+  "description": "The backend component of our game.",
   "main": "server.js",
   "type": "module",
   "scripts": {
