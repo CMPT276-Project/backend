@@ -28,6 +28,32 @@ npm test
 
 Testing scripts default to `./testing.sqlite3` instead of `./db.sqlite3` due to the potentially destructive nature of the database tests; by forcing different databases, we can prevent accidental data loss due to wrong command invocation.
 
+# Howto
+
+## Creating a user
+
+To create a user send a GET request to `/api/v1/user/register`, you will receive a JSON payload containing a GUID. Internally, the database will store the GUIDs as the user's name as well.
+
+## Changing the user's name
+
+To change a user's name, send a POST request to `/api/v1/user/:guid`, where `:guid` is the GUID returned from sending a GET request`/api/v1/user/register`. The POST body should contain a JSON object with a single field: `name: name-to-set`.
+
+## Getting a user's record
+
+To get all data associated with a user, send a GET request to `/api/v1/user/:guid`, where `:guid` is the GUID returned from the GET request to `/api/v1/user/register`. The response's body contains a JSON object with the following fields: `id` and `score`.
+
+## Get scoreboard
+
+To get the scoreboard, send a GET request to `/api/v1/score`. The response will be an array of objects (each object has the keys: `name` and `score`) encoded as a JSON object.
+
+## Get a user's score
+
+To get a user's score, send a GET request to `/api/v1/score/:guid`, where `:guid` is the GUID of the user. The response will be a JSON object containing a single key, `score`.
+
+## Update a user's score
+
+To update a user's score, send a PATCH request to `/api/v1/score/:guid`, where `:guid` is the GUID of the user. The request body should contain a JSON object with a single key, `score`, and a integer value to update by.
+
 # Dependency Rationale
 
 ## Fastify
