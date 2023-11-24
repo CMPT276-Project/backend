@@ -5,7 +5,7 @@ import { randomUUID } from "node:crypto";
 import Fastify from "fastify";
 
 import { Database } from "./app/database.js";
-import { create_user, update_user_name } from "./app/users.js";
+import { create_user, update_user_name, get_user } from "./app/users.js";
 import { get_score_for_user, get_all_scores, update_user_score_by_amount } from "./app/scores.js";
 
 const hostname = "127.0.0.1";
@@ -98,7 +98,7 @@ fastify.get("/api/v1/score/:guid", async function(request, response) {
 });
 
 // Update a user's score
-fastify.post("/api/v1/score/:guid", async function(request, response) {
+fastify.patch("/api/v1/score/:guid", async function(request, response) {
     const guid = request.params["guid"];
     const update_by_amount = request.body["score"];
 
