@@ -1,8 +1,8 @@
 # What is this?
 
-This repository serves as a working POC of the backend component of our Kahoot style game.
+This repository contains the backend codebase for our scoring systems.
 
-This POC will be concerned with two components of our game: the backend, which consists of setting up the database and establishing a WebSocket server, and the database, which will store the scores of our players.
+Presently (as of 2023 November 26) the feature list is stabilized and has been copied into our project monorepo.
 
 # Prerequisites
 
