@@ -54,6 +54,8 @@ To get a user's score, send a GET request to `/api/v1/score/:guid`, where `:guid
 
 To update a user's score, send a PATCH request to `/api/v1/score/:guid`, where `:guid` is the GUID of the user. The request body should contain a JSON object with a single key, `score`, and a integer value to update by.
 
+If the submitted score is higher than what is stored, then the score in the database is updated with the submitted score. If the score is less or equal then it is discarded.
+
 # Dependency Rationale
 
 ## Fastify
