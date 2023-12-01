@@ -1,3 +1,7 @@
+# Archived
+
+This repo has been archived as of 2023 November 30, the codebase now lives on at the [monorepo](https://github.com/CMPT276-Project/CMPT276-Project)
+
 # What is this?
 
 This repository contains the backend codebase for our scoring systems.
